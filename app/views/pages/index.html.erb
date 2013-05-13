@@ -1,0 +1,38 @@
+<%- model_class = Page -%>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:content) %></th>
+      
+      
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pages.each do |page| %>
+      <tr>
+        
+        <td><%= link_to page.title , site_page_path(@site, page)%></td>
+        <td><%= page.content %></td>
+        
+        
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_site_page_path(@site , page), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      site_page_path(@site , page),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_site_page_path(@site),
+            :class => 'btn btn-primary' %>
